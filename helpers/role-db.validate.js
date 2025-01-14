@@ -7,4 +7,4 @@ const roleValidator = async function (role) {
   }
 };
 
-module.exports = roleValidator;
+module.exports = { roleValidator };
