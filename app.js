@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 // Routes
 app.use("/api", require("./routes"));
+app.use("/api/users", userRoutes);
 
 // Port
 const PORT = process.env.PORT;
