@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre("save", encryptPassword);
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bycrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model("User", UserSchema);
