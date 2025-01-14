@@ -1,17 +1,19 @@
 const { validationResult, check } = require("express-validator");
 const User = require("../models/User");
+const { validate } = require("../middlewares/validate");
 
 // Middleware de validación
 const validateUser = [
   check("email").isEmail().withMessage("Must be valid email."),
+  check("name").not().isEmpty().withMessage("Name is required"),
+  check("password")
+    .isLength({ min: 6 })
+    .withMessage("Password is required and must has 6 characters"),
+  check("role").isIn(["admin", "user"]).withMessage("Role not valid"),
+  validate,
 ];
 
 const createUser = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   try {
     const { name, email, password, img, role } = req.body;
     const user = new User({ name, email, password, img, role });
