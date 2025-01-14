@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 // POST
-const createUser = async (req, res) => {
+const createUser = async function (req, res) {
   try {
     const { name, email, password, img, role } = req.body;
     const user = new User({ name, email, password, img, role });
@@ -13,4 +13,17 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = createUser;
+// GET
+const getUsers = async function (req, res) {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ message: `Error GET: ${error}` });
+  }
+};
+
+module.exports = {
+  createUser,
+  getUsers,
+};

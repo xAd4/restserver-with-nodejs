@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-app.use("/api", require("./routes"));
 app.use("/api/users", userRoutes);
 
 // Port
