@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
-const { validate } = require("../middlewares/validate");
+const validate = require("../middlewares/validate");
 const roleValidator = require("./role-db.validate");
-const { emailValidator } = require("./email-db.validate");
+const emailValidator = require("./email-db.validate");
 
 // Middleware de validación
 const validateUser = [
@@ -14,4 +14,4 @@ const validateUser = [
   validate,
 ];
 
-module.exports = { validateUser };
+module.exports = validateUser;

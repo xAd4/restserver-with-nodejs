@@ -8,6 +8,4 @@ const validate = function (req, res, next) {
   next();
 };
 
-module.exports = {
-  validate,
-};
+module.exports = validate;

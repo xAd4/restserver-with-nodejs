@@ -7,7 +7,12 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   img: { type: String },
-  role: { type: String, required: true, emun: ["admin", "user"] },
+  role: {
+    type: String,
+    required: true,
+    emun: ["admin", "user"],
+    default: "user",
+  },
   state: { type: Boolean, default: true },
   google: { type: Boolean, default: false },
 });

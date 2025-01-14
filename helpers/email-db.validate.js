@@ -8,4 +8,4 @@ const emailValidator = async function (email) {
   }
 };
 
-module.exports = { emailValidator };
+module.exports = emailValidator;
