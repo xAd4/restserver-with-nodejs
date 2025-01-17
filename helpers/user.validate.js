@@ -2,6 +2,7 @@ const { check } = require("express-validator");
 const validate = require("../middlewares/validate");
 const roleValidator = require("./role-db.validate");
 const emailValidator = require("./email-db.validate");
+const userByIdValidator = require("./userById-db.validate");
 
 // Middleware de validación
 const validateUser = [
@@ -14,4 +15,11 @@ const validateUser = [
   validate,
 ];
 
-module.exports = validateUser;
+const validatePutUser = [
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  check("id").custom(userByIdValidator),
+  check("role").custom(roleValidator),
+  validate,
+];
+
+module.exports = { validateUser, validatePutUser };
