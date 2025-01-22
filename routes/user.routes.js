@@ -13,8 +13,8 @@ const {
 
 const router = express.Router();
 
-router.post("/", validateUser, createUser);
 router.get("/", getUsers);
+router.post("/", validateUser, createUser);
 router.put("/:id", validatePutUser, updateUser);
 router.delete("/:id", validateUserDelete, deleteUser);
 
