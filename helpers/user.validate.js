@@ -28,4 +28,15 @@ const validateUserDelete = [
   validate,
 ];
 
-module.exports = { validateUser, validatePutUser, validateUserDelete };
+const validateAuth = [
+  check("email").isEmail(),
+  check("password").not().isEmpty().withMessage("Password is required"),
+  validate,
+];
+
+module.exports = {
+  validateUser,
+  validatePutUser,
+  validateUserDelete,
+  validateAuth,
+};
