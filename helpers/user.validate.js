@@ -22,4 +22,10 @@ const validatePutUser = [
   validate,
 ];
 
-module.exports = { validateUser, validatePutUser };
+const validateUserDelete = [
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  check("id").custom(userByIdValidator),
+  validate,
+];
+
+module.exports = { validateUser, validatePutUser, validateUserDelete };

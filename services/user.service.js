@@ -10,10 +10,11 @@ const createUser = async (data) => {
 
 const getUsers = async (req = request, res = response) => {
   const { limit = 15, since = 1 } = req.query || {};
+  const query = { state: true };
 
   const [totalUser, user] = await Promise.all([
-    User.countDocuments(),
-    User.find().skip(Number(since)).limit(Number(limit)),
+    User.countDocuments(query),
+    User.find(query).skip(Number(since)).limit(Number(limit)),
   ]);
 
   return { user, totalUser };
@@ -31,8 +32,13 @@ const updateUser = async (id, data) => {
   });
 };
 
+const deleteUser = async (id) => {
+  return await User.findByIdAndUpdate(id, { state: false });
+};
+
 module.exports = {
   createUser,
   getUsers,
   updateUser,
+  deleteUser,
 };
