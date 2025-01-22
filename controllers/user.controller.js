@@ -1,57 +1,40 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
+const userService = require("../services/user.service");
 
-// POST
-const createUser = async function (req, res) {
+const createUser = async (req, res) => {
   try {
-    const { name, email, password, img, role } = req.body;
-    const user = new User({ name, email, password, img, role });
-
-    await user.save();
+    const user = await userService.createUser(req.body);
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ message: `Error: ${error} ` });
+    res.status(400).json({ message: `Error: ${error.message}` });
   }
 };
 
-// GET
-const getUsers = async function (req, res) {
+const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await userService.getUsers();
     res.status(200).json(users);
   } catch (error) {
-    res.status(400).json({ message: `Error GET: ${error}` });
+    res.status(400).json({ message: `Error: ${error.message}` });
   }
 };
 
-// PUT
-const updateUsers = async function (req, res) {
+const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { _id, password, google, ...rest } = req.body;
+    const updatedUser = await userService.updateUser(id, req.body);
 
-    if (password) {
-      const salt = await bcrypt.genSalt(10);
-      rest.password = await bcrypt.hash(password, salt);
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
     }
 
-    const updateUser = await User.findByIdAndUpdate(id, rest, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!updateUser) {
-      return res.status(404).json({ message: "Not found." });
-    }
-
-    res.status(200).json(updateUser);
+    res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(500).json({ message: `Error: ${error} to update user.` });
+    res.status(500).json({ message: `Error: ${error.message}` });
   }
 };
 
 module.exports = {
   createUser,
   getUsers,
-  updateUsers,
+  updateUser,
 };
