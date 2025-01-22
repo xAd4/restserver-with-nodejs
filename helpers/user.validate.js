@@ -3,6 +3,7 @@ const validate = require("../middlewares/validate");
 const roleValidator = require("./role-db.validate");
 const emailValidator = require("./email-db.validate");
 const userByIdValidator = require("./userById-db.validate");
+const validateJWT = require("../middlewares/validate-jwt");
 
 // Middleware de validación
 const validateUser = [
@@ -23,6 +24,7 @@ const validatePutUser = [
 ];
 
 const validateUserDelete = [
+  validateJWT,
   check("id").isMongoId().withMessage("Must be Mongo ID"),
   check("id").custom(userByIdValidator),
   validate,
