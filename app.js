@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static("public"));
 
 // Routes
 app.use("/api/users", userRoutes);

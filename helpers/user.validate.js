@@ -1,10 +1,10 @@
 const { check } = require("express-validator");
 const validate = require("../middlewares/validate");
+const validateJWT = require("../middlewares/validate-jwt");
+const { isAdmin, hasRole } = require("../middlewares/validate-role");
 const roleValidator = require("./role-db.validate");
 const emailValidator = require("./email-db.validate");
 const userByIdValidator = require("./userById-db.validate");
-const validateJWT = require("../middlewares/validate-jwt");
-const { isAdmin, hasRole } = require("../middlewares/validate-role");
 
 // Middleware de validación
 const validateUser = [
@@ -42,9 +42,12 @@ const validateAuth = [
   validate,
 ];
 
+const validateAuthGoogle = [check("id_token").not().isEmpty(), validate];
+
 module.exports = {
   validateUser,
   validatePutUser,
   validateUserDelete,
   validateAuth,
+  validateAuthGoogle,
 };

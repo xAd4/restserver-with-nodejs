@@ -9,7 +9,7 @@ const createUser = async (data) => {
 };
 
 const getUsers = async (req = request, res = response) => {
-  const { limit = 15, since = 1 } = req.query || {};
+  const { limit = 100, since = 0 } = req.query || {};
   const query = { state: true };
 
   const [totalUser, user] = await Promise.all([
