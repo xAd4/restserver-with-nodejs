@@ -2,12 +2,6 @@ const { request, response } = require("express");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-const createUser = async (data) => {
-  const user = new User(data);
-  await user.save();
-  return user;
-};
-
 const getUsers = async (req = request, res = response) => {
   const { limit = 100, since = 0 } = req.query || {};
   const query = { state: true };
@@ -18,6 +12,12 @@ const getUsers = async (req = request, res = response) => {
   ]);
 
   return { user, totalUser };
+};
+
+const createUser = async (data) => {
+  const user = new User(data);
+  await user.save();
+  return user;
 };
 
 const updateUser = async (id, data) => {

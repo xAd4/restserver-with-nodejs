@@ -1,14 +1,6 @@
 const userService = require("../services/user.service");
 
-const createUser = async (req, res) => {
-  try {
-    const user = await userService.createUser(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ message: `Error: ${error.message}` });
-  }
-};
-
+// GET
 const getUsers = async (req, res) => {
   try {
     const { user, totalUser } = await userService.getUsers(req);
@@ -18,6 +10,17 @@ const getUsers = async (req, res) => {
   }
 };
 
+// POST
+const createUser = async (req, res) => {
+  try {
+    const user = await userService.createUser(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ message: `Error: ${error.message}` });
+  }
+};
+
+// PUT
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -33,6 +36,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+// DELETE
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
