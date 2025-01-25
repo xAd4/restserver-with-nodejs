@@ -1,12 +1,12 @@
 const { response } = require("express");
-const Category = require("../models/Category");
 const categoryService = require("../services/category.service");
 
 // GET
-const getCategories = async (req, res) => {
+const getCategories = async (req, res = response) => {
   try {
-    const { category, totalCategory } =
-      await categoryService.getServiceCategories(req);
+    const { category, totalCategory } = await categoryService.getCategories(
+      req
+    );
     res.status(200).json({ totalCategory, category });
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
@@ -14,10 +14,10 @@ const getCategories = async (req, res) => {
 };
 
 // GET by ID
-const getCategoriesByID = async (req, res) => {
+const getCategoryByID = async (req, res = response) => {
   try {
     const { id } = req.params;
-    const category = await categoryService.getCategoriesByID(id);
+    const category = await categoryService.getCategoryById(id);
     res.status(200).json(category);
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
@@ -25,9 +25,9 @@ const getCategoriesByID = async (req, res) => {
 };
 
 // POST
-const postCategories = async (req, res = response) => {
+const postCategory = async (req, res = response) => {
   try {
-    const category = await categoryService.postServiceCategories(req.body);
+    const category = await categoryService.postCategory(req.body);
     res.status(201).json(category);
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
@@ -35,7 +35,7 @@ const postCategories = async (req, res = response) => {
 };
 
 // PUT
-const putCategories = async (req, res = response) => {
+const putCategory = async (req, res = response) => {
   try {
     const { id } = req.params;
     const category = await categoryService.putCategory(id, req.body);
@@ -60,8 +60,8 @@ const deleteCategory = async (req, res = response) => {
 
 module.exports = {
   getCategories,
-  postCategories,
-  getCategoriesByID,
-  putCategories,
+  postCategory,
+  getCategoryByID,
+  putCategory,
   deleteCategory,
 };

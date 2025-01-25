@@ -2,7 +2,7 @@ const { response } = require("express");
 const Category = require("../models/Category");
 
 // GET
-const getServiceCategories = async (req, res = response) => {
+const getCategories = async (req, res = response) => {
   const { limit = 100, since = 0 } = req.query || {};
   const query = { state: true };
   const [totalCategory, category] = await Promise.all([
@@ -13,12 +13,12 @@ const getServiceCategories = async (req, res = response) => {
 };
 
 // GET by ID
-const getCategoriesByID = async (id, data) => {
+const getCategoryById = async (id, data) => {
   return await Category.findById(id, data);
 };
 
 // POST
-const postServiceCategories = async (data) => {
+const postCategory = async (data) => {
   const category = new Category(data);
   await category.save();
   return category;
@@ -38,9 +38,9 @@ const deleteCategory = async (id) => {
 };
 
 module.exports = {
-  getServiceCategories,
-  postServiceCategories,
-  getCategoriesByID,
+  getCategories,
+  getCategoryById,
+  postCategory,
   putCategory,
   deleteCategory,
 };
