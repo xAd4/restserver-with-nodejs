@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 require("dotenv").config();
 
+// Middleware para validar un JWT
 const validateJWT = async (req = request, res = response, next) => {
   const token = req.header("x-token");
   if (!token) return res.status(401).json({ msg: "No token provided" });

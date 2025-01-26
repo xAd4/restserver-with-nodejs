@@ -1,5 +1,6 @@
 const { response } = require("express");
 
+// Middleware para verificar si un usuario de la base de datos es administrador
 const isAdmin = (req, res = response, next) => {
   if (!req.userAuthenticated)
     return res.status(500).json({
@@ -16,6 +17,7 @@ const isAdmin = (req, res = response, next) => {
   next();
 };
 
+// Middleware que verifica si un usuario en la base de datos tiene algún rol
 const hasRole = (...roles) => {
   return (req, res = response, next) => {
     if (!req.userAuthenticated)

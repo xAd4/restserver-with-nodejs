@@ -17,9 +17,10 @@ const UserSchema = new mongoose.Schema({
   google: { type: Boolean, default: false },
 });
 
-// Encriptar password
+// Encriptación y hasheo de password
 UserSchema.pre("save", encryptPassword);
 
+// Comparación de password
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

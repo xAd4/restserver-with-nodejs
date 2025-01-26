@@ -1,6 +1,7 @@
 const userService = require("../services/user.service");
 
 // GET
+// Controlador para conseguir todos los usuarios
 const getUsers = async (req, res) => {
   try {
     const { user, totalUser } = await userService.getUsers(req);
@@ -11,6 +12,7 @@ const getUsers = async (req, res) => {
 };
 
 // POST
+// Controlador para crear un nuevo usuario
 const createUser = async (req, res) => {
   try {
     const user = await userService.createUser(req.body);
@@ -21,6 +23,7 @@ const createUser = async (req, res) => {
 };
 
 // PUT
+// Controlador para actualizar un nuevo usuario
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -37,6 +40,7 @@ const updateUser = async (req, res) => {
 };
 
 // DELETE
+// Controlador para "borrar" un usuario
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;

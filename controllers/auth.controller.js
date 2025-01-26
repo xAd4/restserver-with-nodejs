@@ -4,6 +4,7 @@ const User = require("../models/User");
 const googleVerify = require("../utils/google-verify");
 const generateJWT = require("../utils/jwt/generate-jwt");
 
+// Controlador para el login por JWT
 const login = async (req, res = response) => {
   try {
     const { email, password } = req.body;
@@ -17,6 +18,7 @@ const login = async (req, res = response) => {
   }
 };
 
+// Controlador para el login por Google Verify
 const googleSignIn = async (req, res = response) => {
   const { id_token } = req.body;
 

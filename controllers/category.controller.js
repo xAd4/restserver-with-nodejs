@@ -1,7 +1,9 @@
 const { response } = require("express");
 const categoryService = require("../services/category.service");
+const Category = require("../models/Category");
 
 // GET
+// Controlador para conseguir todas las categorías
 const getCategories = async (req, res = response) => {
   try {
     const { category, totalCategory } = await categoryService.getCategories(
@@ -14,6 +16,7 @@ const getCategories = async (req, res = response) => {
 };
 
 // GET by ID
+// Controlador para conseguir una categoría por su ID
 const getCategoryByID = async (req, res = response) => {
   try {
     const { id } = req.params;
@@ -25,9 +28,11 @@ const getCategoryByID = async (req, res = response) => {
 };
 
 // POST
+// Controlador para creación de nueva categoría
 const postCategory = async (req, res = response) => {
   try {
     const category = await categoryService.postCategory(req.body);
+
     res.status(201).json(category);
   } catch (error) {
     res.status(400).json({ message: `Error: ${error.message}` });
@@ -35,6 +40,7 @@ const postCategory = async (req, res = response) => {
 };
 
 // PUT
+// Controlador para actualizar una categoría
 const putCategory = async (req, res = response) => {
   try {
     const { id } = req.params;
@@ -46,6 +52,7 @@ const putCategory = async (req, res = response) => {
 };
 
 // DELETE
+// Controlador para "borrar" una categoría
 const deleteCategory = async (req, res = response) => {
   try {
     const { id } = req.params;

@@ -1,8 +1,10 @@
 require("dotenv").config();
 const { OAuth2Client } = require("google-auth-library");
 
+// Google Verify y lógica de funcionamiento
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+// Debe mantenerse como función normal para que funcione correctamente!
 async function googleVerify(token = "") {
   const ticket = await client.verifyIdToken({
     idToken: token,

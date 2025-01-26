@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+// Generar JWT
 const generateJWT = (uid = "") => {
   return new Promise((resolve, reject) => {
     const payload = { uid };

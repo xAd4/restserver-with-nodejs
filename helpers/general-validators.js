@@ -1,12 +1,15 @@
 const { check } = require("express-validator");
-const validate = require("../middlewares/validate");
-const validateJWT = require("../middlewares/validate-jwt");
-const { isAdmin, hasRole } = require("../middlewares/validate-role");
-const roleValidator = require("./role-db.validate");
-const emailValidator = require("./email-db.validate");
-const userByIdValidator = require("./userById-db.validate");
+const { validate, validateJWT, isAdmin, hasRole } = require("../middlewares/");
+const {
+  emailValidator,
+  roleValidator,
+  userByIdValidator,
+  categoryValidator,
+} = require("./");
 
-// Middleware de validación
+// Middleware de validaciones
+
+// Validaciones del modelo User
 const validateUser = [
   check("email").custom(emailValidator),
   check("name").not().isEmpty().withMessage("Name is required"),
@@ -36,13 +39,22 @@ const validateUserDelete = [
   validate,
 ];
 
+// Validaciones de la autenticación
 const validateAuth = [
   check("email").isEmail(),
   check("password").not().isEmpty().withMessage("Password is required"),
   validate,
 ];
 
+// Validaciones del Google Verify
 const validateAuthGoogle = [check("id_token").not().isEmpty(), validate];
+
+// Validaciones del modelo Category
+const validateCategoryPost = [
+  validateJWT,
+  check("name").custom(categoryValidator),
+  validate,
+];
 
 module.exports = {
   validateUser,
@@ -50,4 +62,5 @@ module.exports = {
   validateUserDelete,
   validateAuth,
   validateAuthGoogle,
+  validateCategoryPost,
 };

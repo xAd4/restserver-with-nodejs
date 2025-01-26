@@ -9,10 +9,11 @@ const {
   validateUser,
   validatePutUser,
   validateUserDelete,
-} = require("../helpers/user.validate");
+} = require("../helpers/general-validators");
 
 const router = express.Router();
 
+// Endpoints de usuarios
 router.get("/", getUsers);
 router.post("/", validateUser, createUser);
 router.put("/:id", validatePutUser, updateUser);

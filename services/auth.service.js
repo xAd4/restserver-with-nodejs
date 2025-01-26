@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const generateJWT = require("../utils/jwt/generate-jwt");
 
+// Lógica para loguear un usuario
 const loginUser = async (email, password) => {
   // Verificar correo
   const user = await User.findOne({ email });
