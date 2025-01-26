@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const generateJWT = require("../utils/jwt/generate-jwt");
+const googleVerify = require("../utils/google-verify");
 
 // Lógica para loguear un usuario
 const loginUser = async (email, password) => {
@@ -27,4 +28,37 @@ const loginUser = async (email, password) => {
   return { user, token };
 };
 
-module.exports = { loginUser };
+const googleSignInUser = async (idToken) => {
+  const { name, picture, email } = await googleVerify(idToken);
+
+  let user = await User.findOne({ email });
+
+  if (!user) {
+    user = new User({
+      name,
+      email,
+      password: ":p",
+      picture,
+      google: true,
+    });
+    await user.save();
+  }
+
+  if (!user.state) {
+    throw new Error("User banned or not exists.");
+  }
+
+  const token = generateJWT(user.id);
+
+  return {
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      picture: user.picture,
+    },
+    token,
+  };
+};
+
+module.exports = { loginUser, googleSignInUser };

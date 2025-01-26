@@ -24,7 +24,7 @@ app.use("/category", categoryRoutes);
 
 // Puerto
 const PORT = process.env.PORT;
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`Server ${PORT} running`);
 });
 

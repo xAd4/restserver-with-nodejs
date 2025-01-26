@@ -50,7 +50,7 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const { userAuthenticated } = req;
+    const { userAuthenticated } = req; // Se obtiene el usuario que eliminó una instancia
 
     res.status(200).json({ "User deleted": deletedUser, userAuthenticated });
   } catch (error) {
