@@ -6,15 +6,19 @@ const {
   putCategory,
   deleteCategory,
 } = require("../controllers/category.controller");
-const { validateCategoryPost } = require("../helpers/general-validators");
+const {
+  validateCategory,
+  validateIdCategory,
+  validateGetByIdCategory,
+} = require("../helpers/general-validators");
 
 const router = express.Router();
 
 // Endpoints de categorías
 router.get("/", getCategories);
-router.get("/:id", getCategoryByID);
-router.post("/", validateCategoryPost, postCategory);
-router.put("/:id", putCategory);
-router.delete("/:id", deleteCategory);
+router.get("/:id", validateGetByIdCategory, getCategoryByID);
+router.post("/", validateCategory, postCategory);
+router.put("/:id", validateIdCategory, putCategory);
+router.delete("/:id", validateIdCategory, deleteCategory);
 
 module.exports = router;

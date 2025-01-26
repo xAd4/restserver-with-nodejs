@@ -16,6 +16,11 @@ const loginUser = async (email, password) => {
     throw new Error("User is not active.");
   }
 
+  // Verificar si es de Google
+  if (user.google) {
+    throw new Error("Login with Google.");
+  }
+
   // Verificar contraseña
   const validPassword = bcrypt.compareSync(password, user.password);
   if (!validPassword) {
@@ -37,7 +42,7 @@ const googleSignInUser = async (idToken) => {
     user = new User({
       name,
       email,
-      password: ":p",
+      password: null,
       picture,
       google: true,
     });

@@ -5,7 +5,7 @@ const encryptPassword = require("../middlewares/encryptPasword");
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, default: null },
   img: { type: String },
   role: {
     type: String,

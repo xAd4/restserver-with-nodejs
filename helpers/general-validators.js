@@ -5,6 +5,7 @@ const {
   roleValidator,
   userByIdValidator,
   categoryValidator,
+  categoryByIdValidator,
 } = require("./");
 
 // Middleware de validaciones
@@ -50,9 +51,23 @@ const validateAuth = [
 const validateAuthGoogle = [check("id_token").not().isEmpty(), validate];
 
 // Validaciones del modelo Category
-const validateCategoryPost = [
+const validateCategory = [
   validateJWT,
   check("name").custom(categoryValidator),
+  validate,
+];
+
+const validateIdCategory = [
+  validateJWT,
+  isAdmin,
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  check("id").custom(categoryByIdValidator),
+  validate,
+];
+
+const validateGetByIdCategory = [
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  check("id").custom(categoryByIdValidator),
   validate,
 ];
 
@@ -62,5 +77,7 @@ module.exports = {
   validateUserDelete,
   validateAuth,
   validateAuthGoogle,
-  validateCategoryPost,
+  validateCategory,
+  validateIdCategory,
+  validateGetByIdCategory,
 };
