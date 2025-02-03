@@ -5,6 +5,7 @@ const emailValidator = require("./email.user-db.validate");
 const userByIdValidator = require("./userById-db.validate");
 const categoryValidator = require("./name.category-db.validate");
 const categoryByIdValidator = require("./categoryById-db.validate");
+const productValidator = require("./name.product-db.validate");
 
 module.exports = {
   roleValidator,
@@ -12,4 +13,5 @@ module.exports = {
   userByIdValidator,
   categoryValidator,
   categoryByIdValidator,
+  productValidator,
 };

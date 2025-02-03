@@ -6,6 +6,7 @@ const {
   userByIdValidator,
   categoryValidator,
   categoryByIdValidator,
+  productValidator,
 } = require("./");
 
 // Middleware de validaciones
@@ -61,13 +62,26 @@ const validateIdCategory = [
   validateJWT,
   isAdmin,
   check("id").isMongoId().withMessage("Must be Mongo ID"),
-  check("id").custom(categoryByIdValidator),
   validate,
 ];
 
 const validateGetByIdCategory = [
   check("id").isMongoId().withMessage("Must be Mongo ID"),
-  check("id").custom(categoryByIdValidator),
+  validate,
+];
+
+// Validaciones del modelo Product
+const validateProduct = [check("name").custom(productValidator), validate];
+
+const validateIdProduct = [
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  validateJWT,
+  isAdmin,
+  validate,
+];
+
+const validatePostProduct = [
+  check("name").not().isEmpty().withMessage("Name is required"),
   validate,
 ];
 
@@ -80,4 +94,7 @@ module.exports = {
   validateCategory,
   validateIdCategory,
   validateGetByIdCategory,
+  validateProduct,
+  validateIdProduct,
+  validatePostProduct,
 };

@@ -3,7 +3,12 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const { userRoutes, authRoutes, categoryRoutes } = require("./routes");
+const {
+  userRoutes,
+  authRoutes,
+  categoryRoutes,
+  productRoutes,
+} = require("./routes");
 require("dotenv").config();
 
 const app = express();
@@ -20,6 +25,7 @@ app.use(express.static("public"));
 app.use("/api/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
+app.use("/product", productRoutes);
 
 // Puerto
 const PORT = process.env.PORT;
