@@ -16,7 +16,7 @@ const getProduct = async (req = request, res = response) => {
 };
 
 // POST
-// Lógica para crear un usuario
+// Lógica para crear un producto
 const createProduct = async (data) => {
   const product = new Product(data);
   await product.save();
@@ -24,7 +24,7 @@ const createProduct = async (data) => {
 };
 
 // PUT
-// Lógica para actualizar un usuario
+// Lógica para actualizar un producto
 const updateProduct = async (id, data) => {
   return await Product.findByIdAndUpdate(id, data, {
     new: true,
@@ -33,7 +33,7 @@ const updateProduct = async (id, data) => {
 };
 
 // DELETE
-// Lógica para "borrar" un usuario
+// Lógica para "borrar" un producto
 const deleteProduct = async (id) => {
   return await Product.findByIdAndUpdate(id, { state: false });
 };

@@ -8,6 +8,7 @@ const {
   authRoutes,
   categoryRoutes,
   productRoutes,
+  searchRoutes,
 } = require("./routes");
 require("dotenv").config();
 
@@ -26,6 +27,7 @@ app.use("/api/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/product", productRoutes);
+app.use("/:collection/:term", searchRoutes);
 
 // Puerto
 const PORT = process.env.PORT;
