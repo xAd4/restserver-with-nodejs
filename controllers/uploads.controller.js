@@ -8,6 +8,16 @@ const uploads = (req, res = response) => {
   }
 
   const { archive } = req.files;
+  const nameCut = archive.name.split(".");
+  const extension = nameCut[nameCut.length - 1];
+
+  // Validar la extensión
+  const extensionAllowed = ["png", "jpg", "jpeg", "gif", "pdf"];
+  if (!extensionAllowed.includes(extension))
+    return res
+      .status(400)
+      .json({ msg: `The archive extension must be ${extensionAllowed}` });
+
   const uploadPath = path.join(__dirname, "../uploads", archive.name);
   archive.mv(uploadPath, (err) => {
     if (err) return res.status(500).json({ err });
