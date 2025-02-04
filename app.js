@@ -27,7 +27,7 @@ app.use("/api/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/product", productRoutes);
-app.use("/:collection/:term", searchRoutes);
+app.use("/search", searchRoutes);
 
 // Puerto
 const PORT = process.env.PORT;
