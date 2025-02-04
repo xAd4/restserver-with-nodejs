@@ -5,6 +5,7 @@ const authRoutes = require("./auth.routes");
 const categoryRoutes = require("./category.routes");
 const productRoutes = require("./product.routes");
 const searchRoutes = require("./search.routes");
+const uploadsRoutes = require("./uploads.routes");
 
 module.exports = {
   userRoutes,
@@ -12,4 +13,5 @@ module.exports = {
   categoryRoutes,
   productRoutes,
   searchRoutes,
+  uploadsRoutes,
 };
