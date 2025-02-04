@@ -1,5 +1,6 @@
 const { response } = require("express");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 const uploads = (req, res = response) => {
   if (!req.files || Object.keys(req.files).length === 0 || !req.files.archive) {
@@ -18,7 +19,9 @@ const uploads = (req, res = response) => {
       .status(400)
       .json({ msg: `The archive extension must be ${extensionAllowed}` });
 
-  const uploadPath = path.join(__dirname, "../uploads", archive.name);
+  // Name uuid
+  const nameTemp = uuidv4() + "." + extension;
+  const uploadPath = path.join(__dirname, "../uploads", nameTemp);
   archive.mv(uploadPath, (err) => {
     if (err) return res.status(500).json({ err });
     res.json({ msg: "File uploaded to" + uploadPath });
