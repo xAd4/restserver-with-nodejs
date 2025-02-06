@@ -1,6 +1,8 @@
 const { response } = require("express");
+const fs = require("fs");
 const uploadArchive = require("../helpers/upload-archive");
 const { User, Product } = require("../models/index");
+const path = require("path");
 
 const uploads = async (req, res = response) => {
   try {
@@ -36,6 +38,15 @@ const updateImage = async (req, res = response) => {
 
     default:
       return res.status(500).json({ msg: "Not allowed." });
+  }
+
+  // Limpiar imagenes previas
+  if (model.img) {
+    // Borrar la imagen del servidor
+    const pathImage = path.join(__dirname, "../uploads", collection, model.img);
+    if (fs.existsSync(pathImage)) {
+      fs.unlinkSync(pathImage);
+    }
   }
 
   const name = await uploadArchive(req.files, undefined, collection);
