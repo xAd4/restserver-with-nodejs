@@ -1,5 +1,11 @@
 const { check } = require("express-validator");
-const { validate, validateJWT, isAdmin, hasRole } = require("../middlewares/");
+const {
+  validate,
+  validateJWT,
+  isAdmin,
+  hasRole,
+  validateArchive,
+} = require("../middlewares/");
 const {
   emailValidator,
   roleValidator,
@@ -8,6 +14,7 @@ const {
   categoryByIdValidator,
   productValidator,
 } = require("./");
+const collectionAllowed = require("./collection-db.validate");
 
 // Middleware de validaciones
 
@@ -85,6 +92,17 @@ const validatePostProduct = [
   validate,
 ];
 
+// Validaciones uploads
+
+const validateUploads = [
+  validateArchive,
+  check("id").isMongoId().withMessage("Must be Mongo ID"),
+  check("collection").custom((c) =>
+    collectionAllowed(c, ["users", "products"])
+  ),
+  validate,
+];
+
 module.exports = {
   validateUser,
   validatePutUser,
@@ -97,4 +115,5 @@ module.exports = {
   validateProduct,
   validateIdProduct,
   validatePostProduct,
+  validateUploads,
 };

@@ -3,7 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const uploadArchive = (
   files,
-  extensionAllowed = ["png", "jpg", "jpeg", "gif", "pdf"]
+  extensionAllowed = ["png", "jpg", "jpeg", "gif", "pdf", "txt", "md"],
+  folder = ""
 ) => {
   return new Promise((resolve, reject) => {
     const { archive } = files;
@@ -16,7 +17,7 @@ const uploadArchive = (
 
     // Name uuid
     const nameTemp = uuidv4() + "." + extension;
-    const uploadPath = path.join(__dirname, "../uploads", nameTemp);
+    const uploadPath = path.join(__dirname, "../uploads", folder, nameTemp);
 
     archive.mv(uploadPath, (err) => {
       if (err) return reject(err);
