@@ -95,7 +95,6 @@ const validatePostProduct = [
 // Validaciones uploads
 
 const validateUploads = [
-  validateArchive,
   check("id").isMongoId().withMessage("Must be Mongo ID"),
   check("collection").custom((c) =>
     collectionAllowed(c, ["users", "products"])

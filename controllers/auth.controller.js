@@ -1,8 +1,5 @@
 const { response } = require("express");
 const { loginUser, googleSignInUser } = require("../services/auth.service");
-const User = require("../models/User");
-const googleVerify = require("../utils/google-verify");
-const generateJWT = require("../utils/jwt/generate-jwt");
 
 // Controlador para el login por JWT
 const login = async (req, res = response) => {
